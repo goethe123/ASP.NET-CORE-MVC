@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using MoneyFlow.Context;
+using MoneyFlow.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ builder.Services.AddDbContext<AppDbContext>(Options=>
 {
     Options.UseSqlServer(builder.Configuration.GetConnectionString("sqlstring"));
 });
+builder.Services.AddScoped<ServicesManager>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
