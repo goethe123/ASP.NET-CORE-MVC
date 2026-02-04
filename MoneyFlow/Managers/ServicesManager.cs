@@ -31,11 +31,44 @@ namespace MoneyFlow.Managers
             };
 
             _dbContext.Service.Add(entity);
-            var rowsAfected = _dbContext.SaveChanges();
-            return rowsAfected;
+            var affected_rows = _dbContext.SaveChanges();
+            return affected_rows;
+        }  
 
+        public ServiceVM GetById(int id)
+        {
+            var entity = _dbContext.Service.Find(id);
+            var model = new ServiceVM
+            {
+                ServiceId = id,
+                Name = entity.Name,
+                Type = entity.Type
+            };
+            return model;
+        }
 
-        }        
+        public int Edit(ServiceVM model)
+        {
+            var entity = _dbContext.Service.Find(model.ServiceId);
+            entity.Name = model.Name;
+            entity.Type = model.Type;
+
+            _dbContext.Service.Update(entity);
+            var affected_rows = _dbContext.SaveChanges();
+            return affected_rows;
+
+        }
+
+        public int Delete (int id )
+        {
+            var entity = _dbContext.Service.Find(id);
+
+            _dbContext.Service.Remove(entity);
+            var affected_rows = _dbContext.SaveChanges();
+            return affected_rows;
+        }
+
+        
 
         
             
